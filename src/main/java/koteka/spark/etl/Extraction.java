@@ -18,12 +18,14 @@ public class Extraction {
         this.datasources = new Datasources(session);
     }
 
-
     public Dataset < Row > fulload_account_from_json(String path) {
         this.datasources.json(path).sort(col("ts").asc())
                 .withColumn("card_id", functions.lit(""))
                 .withColumn("savings_account_id", functions.lit(""))
-                .write().mode("overwrite").format("delta").save("delta-table/accounts");
+                .write().mode("overwrite")
+                .format("delta")
+                .save("delta-table/accounts");
+
         Dataset < Row > jsonDatas = this.datasources.delta_lake("delta-table/accounts");
 
         return jsonDatas;

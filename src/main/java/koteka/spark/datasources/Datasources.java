@@ -21,7 +21,7 @@ public class Datasources {
     }
 
     public Dataset < Row > delta_lake(String path) {
-        Dataset < Row > df = this.session.read().format("delta").load(path);
+        Dataset < Row > df = this.session.read().format("delta").option("overwriteSchema", "true").load(path);
         return df;
     }
 }

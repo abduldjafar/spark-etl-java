@@ -20,12 +20,13 @@ public class Main {
 
         // transformation part
         Transformation transformation = new Transformation(session);
-        Dataset < Row > accountTransformed = transformation.createAccountsTableFromJsonLog(accountsRaw, "delta-table/accounts-firts-step-tranformation");
+        //Dataset < Row > accountTransformed = transformation.createAccountsTableFromJsonLog(accountsRaw, "delta-table/accounts-firts-step-tranformation");
+        Dataset<Row> accountHistoricalTable = transformation.createHistoricalAccountsTable(accountsRaw);
 
 
         // loads to destination
         Loads loads = new Loads();
-        loads.delta_lake(accountTransformed, "delta-table/accountsTransformed");
+        loads.delta_lake(accountHistoricalTable, "delta-table/accountHistoricalTable"); // load to delta lake
 
 
     }
