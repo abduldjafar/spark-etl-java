@@ -36,6 +36,32 @@
             <artifactId>json</artifactId>
             <version>20220320</version>
         </dependency>
+        <dependency>
+            <!-- will stop using ru.yandex.clickhouse starting from 0.4.0  -->
+            <groupId>com.clickhouse</groupId>
+            <artifactId>clickhouse-jdbc</artifactId>
+            <version>0.3.2-patch9</version>
+            <!-- below is only needed when all you want is a shaded jar -->
+            <classifier>http</classifier>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud.bigdataoss</groupId>
+            <artifactId>gcs-connector</artifactId>
+            <version>1.9.4-hadoop3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mongodb.spark/mongo-spark-connector -->
+        <dependency>
+            <groupId>org.mongodb.spark</groupId>
+            <artifactId>mongo-spark-connector</artifactId>
+            <version>10.0.2</version>
+        </dependency>
+
 
 
     </dependencies>

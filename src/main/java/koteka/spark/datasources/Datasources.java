@@ -24,4 +24,10 @@ public class Datasources {
         Dataset < Row > df = this.session.read().format("delta").option("overwriteSchema", "true").load(path);
         return df;
     }
+
+    public  Dataset<Row> mongodb(String database, String collection){
+        Dataset<Row> df = this.session.read().format("mongodb").option("database", database).option("collection", collection).load();
+        return df;
+
+    }
 }

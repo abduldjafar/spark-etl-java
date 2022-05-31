@@ -23,7 +23,7 @@ public class Transformation {
     public Transformation() {}
 
     public Dataset < Row > createAccountsTableFromJsonLog(Dataset < Row > accountRawDataframe, String path) {
-        Loads loads = new Loads();
+        Loads loads = new Loads(this.session);
         Extraction extraction = new Extraction(this.session);
 
         Dataset < Row > accountRawDataframeTemp = accountRawDataframe.select("data.*", "ts", "id", "savings_account_id", "card_id").where(functions.col("op").equalTo("c"));
@@ -53,7 +53,7 @@ public class Transformation {
 
     }
 
-    public Dataset < Row > createHistoricalAccountsTable(Dataset < Row > accountRawDataframe) {
+    public Dataset < Row > createHistoricalTable(Dataset < Row > accountRawDataframe) {
         Dataset < Row > accountRawDataframeTemp = accountRawDataframe.select("data.*", "id", "op").where(functions.col("op").equalTo("c"));
         String[] columns = accountRawDataframeTemp.schema().fieldNames();
 
@@ -75,6 +75,14 @@ public class Transformation {
             }
         }
 
-        return accountRawDataframe;
+        return accounRawHistorica.unionByName(accountRawDataframeTemp);
+    }
+
+    public Dataset<Row> createTableFromJsonColumns(Dataset<Row> datas, String columnname, String path){
+
+        datas.select("_id",columnname+".*").write().mode("overwrite").option("overwriteSchema", "true").format("delta").save(path);
+
+        return this.datasources.delta_lake(path);
+
     }
 }
