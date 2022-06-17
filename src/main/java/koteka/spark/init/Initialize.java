@@ -22,8 +22,8 @@ public class Initialize {
                     .config("spark.master", "local")
                     .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
                     .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
-                    .config("spark.mongodb.read.connection.uri", "")
-                    .config("spark.mongodb.write.connection.uri", "")
+                    .config("spark.mongodb.read.connection.uri", "mongodb+srv://kotekaman:Robonson10@cluster0.36shw.mongodb.net/?retryWrites=true&w=majority")
+                    .config("spark.mongodb.write.connection.uri", "mongodb+srv://kotekaman:Robonson10@cluster0.36shw.mongodb.net/?retryWrites=true&w=majority")
                     .getOrCreate();
             return spark;
         } else {
