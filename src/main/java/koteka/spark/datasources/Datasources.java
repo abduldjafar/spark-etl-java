@@ -15,15 +15,7 @@ public class Datasources {
         this.session = session;
     }
 
-    public Dataset < Row > json(String path) {
-        Dataset < Row > df = this.session.read().option("multiline", "true").json(path);
-        return df;
-    }
 
-    public Dataset < Row > delta_lake(String path) {
-        Dataset < Row > df = this.session.read().format("delta").option("overwriteSchema", "true").load(path);
-        return df;
-    }
 
     public  Dataset<Row> mongodb(String database, String collection){
         Dataset<Row> df = this.session.read().format("mongodb").option("database", database).option("collection", collection).load();
